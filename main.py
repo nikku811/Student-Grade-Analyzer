@@ -37,3 +37,34 @@ GRADE_SCALE = [
      (40, "E"),
     (0,  "F"),
 ]
+
+
+# ─────────────────────────────────────────────
+#  HELPERS
+# ─────────────────────────────────────────────
+def load_students(filepath: Path) -> tuple[list[str], list[dict]]:
+    """Load student records from a CSV file.
+
+    Returns
+    -------
+    subjects : list[str]
+        Names of the subject columns found in the CSV header.
+    students : list[dict]
+        Raw student records as dictionaries.
+    """
+    if not filepath.exists():
+        raise FileNotFoundError(
+            f"Dataset not found: {filepath}\n"
+            "Please ensure 'data/students.csv' exists."
+        )
+
+    with open(filepath, newline="", encoding="utf-8") as fh:
+        reader    = csv.DictReader(fh)
+        fieldnames = reader.fieldnames or []
+        subjects  = [f for f in fieldnames if f != "Name"]
+        students  = [row for row in reader]
+
+    if not students:
+        raise ValueError("The CSV file is empty – no student records found.")
+
+    return subjects, students
