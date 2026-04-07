@@ -1,3 +1,5 @@
+## Author : Ram Narayan
+
 # Student Grade Analyzer 📊
 
 ## 1. Problem Statement
