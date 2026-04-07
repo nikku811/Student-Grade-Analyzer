@@ -98,3 +98,11 @@ def calculate_results(subjects: list[str], students: list[dict]) -> list[dict]:
         })
 
     return results
+
+
+def assign_grade(percentage: float) -> str:
+    """Return letter grade based on percentage."""
+    for threshold, letter in GRADE_SCALE:
+        if percentage >= threshold:
+            return letter
+    return "F"
