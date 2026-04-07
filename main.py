@@ -68,3 +68,33 @@ def load_students(filepath: Path) -> tuple[list[str], list[dict]]:
         raise ValueError("The CSV file is empty – no student records found.")
 
     return subjects, students
+
+
+def calculate_results(subjects: list[str], students: list[dict]) -> list[dict]:
+    """Compute Total, Percentage, Grade, and Status for every student."""
+    max_total = MAX_PER_SUB * len(subjects)
+    results   = []
+
+    for s in students:
+        try:
+            marks      = [int(s[sub]) for sub in subjects]
+        except (ValueError, KeyError) as exc:
+            raise ValueError(
+                f"Invalid marks for student '{s.get('Name', '?')}': {exc}"
+            )
+
+        total      = sum(marks)
+        percentage = (total / max_total) * 100
+        grade      = assign_grade(percentage)
+        status     = "PASS" if percentage >= PASS_CUTOFF else "FAIL"
+
+        results.append({
+            "Name"      : s["Name"],
+            **{sub: marks[i] for i, sub in enumerate(subjects)},
+            "Total"     : total,
+            "Percentage": round(percentage, 2),
+            "Grade"     : grade,
+            "Status"    : status,
+        })
+
+    return results
