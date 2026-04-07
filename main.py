@@ -106,3 +106,49 @@ def assign_grade(percentage: float) -> str:
         if percentage >= threshold:
             return letter
     return "F"
+
+
+# ---------------------------------------------
+#  DISPLAY
+# ---------------------------------------------
+def print_banner() -> None:
+    """Print a styled header banner."""
+    print("\n" + "=" * 75)
+    print(" " * 22 + "[*]  STUDENT GRADE ANALYZER  [*]")
+    print("=" * 75)
+
+
+def print_table(subjects: list[str], results: list[dict]) -> None:
+    """Render all results in a clean, aligned tabular format."""
+    col_name   = 18
+    col_sub    = 9
+    col_total  = 8
+    col_pct    = 12
+    col_grade  = 7
+    col_status = 12
+
+    # -- header ------------------------------
+    header  = f"{'No.':<4} {'Name':<{col_name}}"
+    header += "".join(f"{sub:^{col_sub}}" for sub in subjects)
+    header += f"{'Total':>{col_total}}  {'Percentage':>{col_pct}}  {'Grade':^{col_grade}}  {'Status':<{col_status}}"
+
+    sep = "-" * len(header)
+    print(f"\n{sep}")
+    print(header)
+    print(sep)
+
+    # -- rows --------------------------------
+    for idx, r in enumerate(results, start=1):
+        row  = f"{idx:<4} {r['Name']:<{col_name}}"
+        row += "".join(f"{r[sub]:^{col_sub}}" for sub in subjects)
+        row += (
+            f"{r['Total']:>{col_total}}"
+            f"  {r['Percentage']:>{col_pct - 1}.2f}%"
+            f"  {r['Grade']:^{col_grade}}"
+            f"  {r['Status']:<{col_status}}"
+        )
+        print(row)
+
+    print(sep)
+
+
