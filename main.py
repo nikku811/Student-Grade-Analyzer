@@ -152,3 +152,30 @@ def print_table(subjects: list[str], results: list[dict]) -> None:
     print(sep)
 
 
+# ─────────────────────────────────────────────
+#  MAIN
+# ─────────────────────────────────────────────
+def main() -> None:
+    print_banner()
+
+    # 1. Load data
+    print(f"\n  [>>]  Loading data from: {DATA_FILE}")
+    subjects, raw_students = load_students(DATA_FILE)
+    print(f"  [OK]  {len(raw_students)} student record(s) loaded.")
+    print(f"  [OK]  Subjects detected: {', '.join(subjects)}")
+
+    # 2. Calculate
+    results = calculate_results(subjects, raw_students)
+
+    # 3. Display table
+    print_table(subjects, results)
+
+    # 4. Summary & insights
+    print_summary(subjects, results)
+
+    # 5. Save CSV report
+    save_report(subjects, results)
+
+
+if __name__ == "__main__":
+    main()
