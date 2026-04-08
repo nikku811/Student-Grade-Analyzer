@@ -152,7 +152,7 @@ def print_table(subjects: list[str], results: list[dict]) -> None:
     print(sep)
 
 
-    def print_summary(subjects: list[str], results: list[dict]) -> None:
+def print_summary(subjects: list[str], results: list[dict]) -> None:
     """Print class-level performance summary."""
     total_students = len(results)
     passed  = sum(1 for r in results if "PASS" in r["Status"])
