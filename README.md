@@ -2,25 +2,34 @@
 
 # Student Grade Analyzer 📊
 
-## 1. Problem Statement
-Many educational institutions struggle to manually process student marks, calculate percentages, and determine pass/fail status for large batches. This Python-based tool automates the process by reading data from a CSV file, performing mathematical calculations, and generating a performance report.
+A Python-based command-line tool that automates the process of reading student marks from a CSV file, computing totals and percentages, assigning grades, determining Pass/Fail status, and producing a clean performance report — all in one run.
 
-## 2. Key Features
-* **Data Loading:** Automatically reads student data from a `students.csv` file.
-* **Automated Calculation:** Computes Total Marks and Percentage for each student.
-* **Grading Logic:** Assigns Pass/Fail status based on a 40% cutoff.
-* **Performance Insights:** Identifies the Top Scorer of the class.
-* **Clean Output:** Displays results in a structured tabular format.
+---
 
-## 3. Tech Stack
-* **Language:** Python 3.x
-* **Version Control:** Git & GitHub
-* **Editor:** Visual Studio Code
+## 📁 Project Structure
 
-## 4. Project Structure
-```text
+```
+student-grade-analyzer/
 ├── data/
-│   └── students.csv       # Input Dataset
-├── main.py                # Main Python Logic
-├── README.md              # Project Documentation
-└── requirements.txt       # Dependencies
+│   ├── students.csv       # Input dataset (required)
+│   └── report.csv         # Auto-generated output report
+├── main.py                # Core Python logic
+├── README.md              # Project documentation
+└── requirements.txt       # Python dependencies (none beyond stdlib)
+```
+
+---
+
+## ✨ Features
+
+| Feature | Description |
+|---|---|
+| **Data Loading** | Reads any CSV with a `Name` column + subject columns |
+| **Auto Calculation** | Computes Total and Percentage per student |
+| **Grade Assignment** | A+ / A / B / C / D / E / F based on percentage |
+| **Pass / Fail Logic** | 40% cutoff (configurable in `main.py`) |
+| **Top 3 Scorers** | Highlights the top three performing students |
+| **Grade Distribution** | Bar chart of grade spread across the class |
+| **CSV Report Export** | Saves computed results to `data/report.csv` |
+
+---
