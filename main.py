@@ -152,6 +152,20 @@ def print_table(subjects: list[str], results: list[dict]) -> None:
     print(sep)
 
 
+def save_report(subjects: list[str], results: list[dict]) -> None:
+    """Optionally save the results to a CSV report file."""
+    out_path = BASE_DIR / "data" / "report.csv"
+    fieldnames = ["Name"] + subjects + ["Total", "Percentage", "Grade", "Status"]
+
+    with open(out_path, "w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(results)
+
+    # Remove emoji from Status for plain CSV
+    print(f"  [SAVED]  Report saved to: {out_path}")
+
+
 # ─────────────────────────────────────────────
 #  MAIN
 # ─────────────────────────────────────────────
