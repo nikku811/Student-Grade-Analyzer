@@ -152,6 +152,53 @@ def print_table(subjects: list[str], results: list[dict]) -> None:
     print(sep)
 
 
+    def print_summary(subjects: list[str], results: list[dict]) -> None:
+    """Print class-level performance summary."""
+    total_students = len(results)
+    passed  = sum(1 for r in results if "PASS" in r["Status"])
+    failed  = total_students - passed
+    avg_pct = sum(r["Percentage"] for r in results) / total_students
+
+    top_scorers = sorted(results, key=lambda r: r["Percentage"], reverse=True)[:3]
+
+    grade_dist: dict[str, int] = {}
+    for r in results:
+        grade_dist[r["Grade"]] = grade_dist.get(r["Grade"], 0) + 1
+
+    print("\n" + "=" * 75)
+    print(" " * 27 + "CLASS SUMMARY")
+    print("=" * 75)
+    print(f"  {'Total Students':<25}: {total_students}")
+    print(f"  {'Passed':<25}: {passed}  ({(passed/total_students)*100:.1f}%)")
+    print(f"  {'Failed':<25}: {failed}  ({(failed/total_students)*100:.1f}%)")
+    print(f"  {'Class Average':<25}: {avg_pct:.2f}%")
+    if top_scorers:
+        print(f"  {'Highest Percentage':<25}: {top_scorers[0]['Percentage']}%")
+
+    print("\n" + "-" * 75)
+    print("  [TROPHY]  TOP SCORERS")
+    print("-" * 75)
+    for i, scorer in enumerate(top_scorers, 1):
+        print(f"  {i}. {scorer['Name']} ({scorer['Percentage']}%)")
+        subject_details = " | ".join(
+            f"{sub}: {scorer[sub]}" for sub in subjects
+        )
+        print(f"     Marks : {subject_details}")
+        print(f"     Total : {scorer['Total']} / {MAX_PER_SUB * len(subjects)}  |  Grade: {scorer['Grade']}  |  Status: {'PASS' if 'PASS' in scorer['Status'] else 'FAIL'}")
+        if i < len(top_scorers):
+            print()
+
+    print("\n" + "-" * 75)
+    print("  GRADE DISTRIBUTION")
+    print("-" * 75)
+    for grade_letter in ["A+", "A", "B", "C", "D", "E", "F"]:
+        count = grade_dist.get(grade_letter, 0)
+        bar   = "#" * count
+        print(f"  {grade_letter:^3} | {bar:<20} {count} student(s)")
+
+    print("=" * 75 + "\n")
+
+
 def save_report(subjects: list[str], results: list[dict]) -> None:
     """Optionally save the results to a CSV report file."""
     out_path = BASE_DIR / "data" / "report.csv"
