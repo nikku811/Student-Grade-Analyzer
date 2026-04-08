@@ -1,1 +1,13 @@
 # ─────────────────────────────────────────────────────────────
+#  Student Grade Analyzer — Python Dependencies
+#  This project uses ONLY the Python Standard Library.
+#  No third-party packages are required.
+# ─────────────────────────────────────────────────────────────
+#
+#  Built-in modules used:
+#    csv      — reading/writing CSV files
+#    os       — OS-level utilities
+#    pathlib  — cross-platform file path handling
+#
+#  Minimum Python version: 3.10+
+# ─────────────────────────────────────────────────────────────
